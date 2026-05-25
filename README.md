@@ -8,6 +8,8 @@
 [![Supabase](https://img.shields.io/badge/Supabase-Postgres-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
 [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel&logoColor=white)](https://vercel.com/)
 
+用中文提问，经 Dify 工作流生成 SQL、连接 Supabase 执行查询，并在网页上以表格展示结果。SQL 执行失败时，工作流会根据报错信息自动修正并重试
+
 **实现要点**
 - **Text2SQL + 反思纠错**：在 Dify 中编排「生成 SQL → Python 执行 → 报错则反思修正」流程（工作流需在 Dify 侧配置，本仓库提供前端与调用接口）
 - **安全调用**：Next.js API Route 转发 Dify 请求，API Key 仅保存在服务端环境变量
