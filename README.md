@@ -1,20 +1,16 @@
-# DataLens: Text2SQL Agent Workspace
+# DataLens：自然语言数据查询终端
 
-<div align='center'>
+用中文提问，经 Dify 工作流生成 SQL、连接 Supabase 执行查询，并在网页上以表格展示结果。SQL 执行失败时，工作流会根据报错信息自动修正并重试。
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.0-black?logo=next.js&logoColor=white)](https://nextjs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Dify](https://img.shields.io/badge/Dify.ai-Agentic_Workflow-1C64F2?logo=robot&logoColor=white)](https://dify.ai/)
-[![Supabase](https://img.shields.io/badge/Supabase-Postgres-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
-[![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel&logoColor=white)](https://vercel.com/)
+**实现要点**
+- **Text2SQL + 反思纠错**：在 Dify 中编排「生成 SQL → Python 执行 → 报错则反思修正」流程（工作流需在 Dify 侧配置，本仓库提供前端与调用接口）
+- **安全调用**：Next.js API Route 转发 Dify 请求，API Key 仅保存在服务端环境变量
+- **演示数据**：`mock_data_generator.py` 在 Supabase 创建 users / products / orders 三表并写入测试数据
+- **结果展示**：前端解析返回 JSON，支持表格与 Raw JSON 视图
 
-**基于大模型反思机制 (Reflection) 构建的企业级数据查询终端** <br>
-*使用自然语言，即时获取并渲染结构化业务数据。*
+**在线体验**：[Vercel Demo](https://datalens-text2sql-agent.vercel.app) · **演示视频**：[Bilibili](https://www.bilibili.com/video/BV1szXaBhEmG/)
 
-[**点击访问线上 Demo**](https://datalens-text2sql-agent.vercel.app) · [**报告 Bug**](https://github.com/Daphne502/DataLens-Text2SQL-Agent/issues)
-
-</div>
-<br/>
+> 说明：本仓库包含 Next.js 前端与数据脚本；Text2SQL 与反思逻辑在 Dify 工作流中实现，本地运行需自备 Dify API Key 及已导入的工作流
 
 **在线视频演示：**
 
