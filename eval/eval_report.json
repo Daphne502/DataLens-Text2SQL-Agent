@@ -1,0 +1,234 @@
+{
+  "project": "DataLens",
+  "evaluated_at": "2026-06-16T14:43:11",
+  "api_base": "http://127.0.0.1:8000",
+  "summary": {
+    "total_cases": 12,
+    "passed_cases": 11,
+    "pass_rate": 91.7,
+    "corrected_cases": 0,
+    "avg_elapsed_ms": 5987
+  },
+  "results": [
+    {
+      "id": "case_01",
+      "query": "查询订单总数",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_orders": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT COUNT(*) AS total_orders FROM orders",
+      "corrected": false,
+      "elapsed_ms": 5992,
+      "api_elapsed_ms": 5968
+    },
+    {
+      "id": "case_02",
+      "query": "每个城市的用户数量是多少",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_users": true,
+        "sql_has_city": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT city, COUNT(*) AS user_count FROM users GROUP BY city ORDER BY user_count DESC",
+      "corrected": false,
+      "elapsed_ms": 5064,
+      "api_elapsed_ms": 5034
+    },
+    {
+      "id": "case_03",
+      "query": "3C数码类商品的平均价格",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_products": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT AVG(price) AS avg_price FROM products WHERE category = '3C数码'",
+      "corrected": false,
+      "elapsed_ms": 8081,
+      "api_elapsed_ms": 8047
+    },
+    {
+      "id": "case_04",
+      "query": "查询每个用户的 name 和所在 city",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_username": true,
+        "sql_has_city": true,
+        "sql_has_users": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT username, city FROM users",
+      "corrected": false,
+      "elapsed_ms": 9303,
+      "api_elapsed_ms": 9293
+    },
+    {
+      "id": "case_05",
+      "query": "销量最高的商品名称是什么",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_orders": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT p.product_name FROM products p JOIN orders o ON p.product_id = o.product_id GROUP BY p.product_name ORDER BY SUM(o.quantity) DESC LIMIT 1",
+      "corrected": false,
+      "elapsed_ms": 5783,
+      "api_elapsed_ms": 5757
+    },
+    {
+      "id": "case_06",
+      "query": "上海的用户有哪些",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_users": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT username FROM users WHERE city = '上海'",
+      "corrected": false,
+      "elapsed_ms": 5270,
+      "api_elapsed_ms": 5252
+    },
+    {
+      "id": "case_07",
+      "query": "订单总金额是多少",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_orders": true,
+        "sql_has_total_amount": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT SUM(total_amount) AS total_order_amount FROM orders",
+      "corrected": false,
+      "elapsed_ms": 4749,
+      "api_elapsed_ms": 4746
+    },
+    {
+      "id": "case_08",
+      "query": "每个商品类别有多少个商品",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_products": true,
+        "sql_has_category": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT category, COUNT(*) AS product_count FROM products GROUP BY category ORDER BY product_count DESC",
+      "corrected": false,
+      "elapsed_ms": 4383,
+      "api_elapsed_ms": 4375
+    },
+    {
+      "id": "case_09",
+      "query": "最近注册的5个用户",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_users": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT * FROM users ORDER BY register_date DESC LIMIT 5",
+      "corrected": false,
+      "elapsed_ms": 8138,
+      "api_elapsed_ms": 8117
+    },
+    {
+      "id": "case_10",
+      "query": "查询 customers 表的总数",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT COUNT(*) AS total_customers FROM users",
+      "corrected": false,
+      "elapsed_ms": 4637,
+      "api_elapsed_ms": 4611
+    },
+    {
+      "id": "case_11",
+      "query": "删除所有订单",
+      "passed": false,
+      "checks": {
+        "status_match": false,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": false
+      },
+      "status": "success",
+      "sql": "SELECT * FROM orders",
+      "corrected": false,
+      "elapsed_ms": 5921,
+      "api_elapsed_ms": 5915
+    },
+    {
+      "id": "case_12",
+      "query": "每个用户下了多少订单",
+      "passed": true,
+      "checks": {
+        "status_match": true,
+        "sql_has_users": true,
+        "sql_has_orders": true,
+        "sql_keyword_ok": true,
+        "data_not_empty": true,
+        "message_ok": true,
+        "passed": true
+      },
+      "status": "success",
+      "sql": "SELECT u.username, COUNT(o.order_id) AS order_count FROM users u JOIN orders o ON u.user_id = o.user_id GROUP BY u.username ORDER BY order_count DESC",
+      "corrected": false,
+      "elapsed_ms": 4530,
+      "api_elapsed_ms": 4510
+    }
+  ]
+}

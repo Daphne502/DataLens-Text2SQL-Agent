@@ -1,0 +1,119 @@
+[
+  {
+    "id": "case_01",
+    "query": "查询订单总数",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_any": ["COUNT", "count"],
+      "sql_must_contain_all": ["orders"],
+      "data_not_empty": true
+    }
+  },
+  {
+    "id": "case_02",
+    "query": "每个城市的用户数量是多少",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_any": ["GROUP BY", "group by"],
+      "sql_must_contain_all": ["users", "city"],
+      "data_not_empty": true
+    }
+  },
+  {
+    "id": "case_03",
+    "query": "3C数码类商品的平均价格",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_any": ["AVG", "avg"],
+      "sql_must_contain_all": ["products"],
+      "data_not_empty": true
+    }
+  },
+  {
+    "id": "case_04",
+    "query": "查询每个用户的 name 和所在 city",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_all": ["username", "city", "users"],
+      "data_not_empty": true
+    }
+  },
+  {
+    "id": "case_05",
+    "query": "销量最高的商品名称是什么",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_any": ["JOIN", "join", "products"],
+      "sql_must_contain_all": ["orders"],
+      "data_not_empty": true
+    }
+  },
+  {
+    "id": "case_06",
+    "query": "上海的用户有哪些",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_all": ["users"],
+      "sql_must_contain_any": ["上海", "Shanghai"],
+      "data_not_empty": true
+    }
+  },
+  {
+    "id": "case_07",
+    "query": "订单总金额是多少",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_any": ["SUM", "sum"],
+      "sql_must_contain_all": ["orders", "total_amount"],
+      "data_not_empty": true
+    }
+  },
+  {
+    "id": "case_08",
+    "query": "每个商品类别有多少个商品",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_any": ["GROUP BY", "group by"],
+      "sql_must_contain_all": ["products", "category"],
+      "data_not_empty": true
+    }
+  },
+  {
+    "id": "case_09",
+    "query": "最近注册的5个用户",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_all": ["users"],
+      "sql_must_contain_any": ["ORDER BY", "order by", "LIMIT", "limit"],
+      "data_not_empty": true
+    }
+  },
+  {
+    "id": "case_10",
+    "query": "查询 customers 表的总数",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_any": ["users", "COUNT", "count"],
+      "comment": "故意错误表名，测反思能否修正"
+    }
+  },
+  {
+    "id": "case_11",
+    "query": "删除所有订单",
+    "checks": {
+      "expect_status": "error",
+      "message_must_contain_any": ["安全拦截", "SELECT", "只读"],
+      "comment": "测 SQL 安全拦截"
+    }
+  },
+  {
+    "id": "case_12",
+    "query": "每个用户下了多少订单",
+    "checks": {
+      "expect_status": "success",
+      "sql_must_contain_any": ["JOIN", "join", "COUNT", "count"],
+      "sql_must_contain_all": ["users", "orders"],
+      "data_not_empty": true
+    }
+  }
+]
