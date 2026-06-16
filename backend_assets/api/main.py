@@ -58,6 +58,15 @@ def parse_dify_outputs(outputs: dict) -> QueryResponse:
         message=None if status == "success" else str(raw_result),
     )
 
+@app.get("/")
+def root():
+    return {
+        "service": "DataLens API",
+        "status": "ok",
+        "docs": "/docs",
+        "health": "/health",
+        "query": "POST /api/v1/query",
+    }
 
 @app.get("/health", response_model=HealthResponse)
 def health_check():
