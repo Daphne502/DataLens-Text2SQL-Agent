@@ -3,7 +3,14 @@ from faker import Faker
 import random
 from datetime import datetime, timedelta
 
-DB_URI = "postgresql://postgres.emqvfcnhoilofkhiruou:DataLens2026password@aws-1-ap-south-1.pooler.supabase.com:5432/postgres"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DB_URI = os.getenv("SUPABASE_DB_URI")
+if not DB_URI:
+    raise ValueError("请设置环境变量 SUPABASE_DB_URI")
 
 fake = Faker('zh_CN')
 
