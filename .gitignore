@@ -1,3 +1,5 @@
 .env
 .env.local
 *.env
+eval/eval_report.json
+frontend/.next

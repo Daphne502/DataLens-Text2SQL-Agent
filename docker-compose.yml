@@ -1,0 +1,25 @@
+services:
+  api:
+    build:
+      context: ./backend_assets
+      dockerfile: Dockerfile
+    container_name: datalens-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: datalens-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # Next.js 服务端 /api/chat 在容器内访问 api 服务
+      DATALENS_API_URL: http://api:8000
+    depends_on:
+      - api
+    restart: unless-stopped
