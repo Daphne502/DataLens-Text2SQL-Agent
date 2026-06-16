@@ -1,0 +1,627 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: DataLens_Core
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.0@4e5891a2f4fff19b005a662a1fadff0e56b62b2dd1b4a93bdffae83c5b38b05e
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: e25dec74-cf31-453b-8332-bd3aa18f5ba3
+    name: SUPABASE_RPC_URL
+    selector:
+    - env
+    - SUPABASE_RPC_URL
+    value: ''
+    value_type: secret
+  - description: ''
+    id: 1d86a20c-ca17-4ab3-a264-f2c7fc9ec4bc
+    name: SUPABASE_ANON_KEY
+    selector:
+    - env
+    - SUPABASE_ANON_KEY
+    value: ''
+    value_type: secret
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1774439025474-source-1774439103130-target
+      selected: false
+      source: '1774439025474'
+      sourceHandle: source
+      target: '1774439103130'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1774439103130-source-1774439296195-target
+      selected: false
+      source: '1774439103130'
+      sourceHandle: source
+      target: '1774439296195'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1774439296195-source-1774521929476-target
+      source: '1774439296195'
+      sourceHandle: source
+      target: '1774521929476'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1774521929476-true-1774439729115-target
+      source: '1774521929476'
+      sourceHandle: 'true'
+      target: '1774439729115'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1774521929476-false-1774522223420-target
+      source: '1774521929476'
+      sourceHandle: 'false'
+      target: '1774522223420'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1774522223420-source-1774522834036-target
+      source: '1774522223420'
+      sourceHandle: source
+      target: '1774522834036'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1774522834036-source-1774522950350-target
+      source: '1774522834036'
+      sourceHandle: source
+      target: '1774522950350'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: user_query
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: user_query
+      height: 108
+      id: '1774439025474'
+      position:
+        x: 153
+        y: 360
+      positionAbsolute:
+        x: 153
+        y: 360
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: bf798bc8-e24a-48d8-80ee-24bc4be1bb44
+          role: system
+          text: '你是一个资深数据分析师。你的任务是将用户的自然语言问题转化为 PostgreSQL 查询语句。
+
+
+            数据库中仅有以下三张表，请严格按照此结构编写 SQL：
+
+
+            1. users (用户表)
+
+            - user_id (整数, 主键)
+
+            - username (字符串)
+
+            - city (字符串)
+
+            - register_date (日期)
+
+
+            2. products (商品表)
+
+            - product_id (整数, 主键)
+
+            - product_name (字符串)
+
+            - category (字符串, 例如: 3C数码, 美妆护肤)
+
+            - price (浮点数)
+
+
+            3. orders (订单表)
+
+            - order_id (整数, 主键)
+
+            - user_id (整数, 外键指向 users)
+
+            - product_id (整数, 外键指向 products)
+
+            - quantity (整数)
+
+            - total_amount (浮点数)
+
+            - order_date (日期)
+
+
+            【示例 1】
+
+            用户问题：查询订单总数
+
+            SQL：SELECT COUNT(*) AS total_orders FROM orders
+
+
+            【示例 2】
+
+            用户问题：每个城市的用户数量是多少
+
+            SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city ORDER
+            BY user_count DESC
+
+
+            【示例 3】
+
+            用户问题：3C数码类商品的平均价格
+
+            SQL：SELECT AVG(price) AS avg_price FROM products WHERE category = ''3C数码''
+
+
+            【示例 4 — 多表 JOIN】
+
+            用户问题：每个用户下了多少订单
+
+            SQL：SELECT u.username, COUNT(o.order_id) AS order_count FROM users u JOIN
+            orders o ON u.user_id = o.user_id GROUP BY u.username ORDER BY order_count
+            DESC
+
+
+            要求：
+
+            1. 仅输出一条能够直接执行的 SQL 语句，不要有任何多余的解释、寒暄。
+
+            2. 绝对不要使用 ```sql 和 ``` 这样的 Markdown 标记包裹代码！只输出纯 SQL 文本！
+
+            3. 字段名必须与表结构完全一致（如 users 表用 username，不要用 name）。
+
+            4. 多表统计时使用 JOIN，不要臆造表名。'
+        - id: 1d302f27-a8b7-4217-b5e4-8fd35782dc5b
+          role: user
+          text: 用户问题：{{#1774439025474.user_query#}}
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1774439103130'
+      position:
+        x: 457.63901582154585
+        y: 381
+      positionAbsolute:
+        x: 457.63901582154585
+        y: 381
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import re\nimport json\nimport requests\n\ndef clean_sql(sql_str: str)\
+          \ -> str:\n    sql = sql_str.replace(\"```sql\", \"\").replace(\"```postgresql\"\
+          , \"\").replace(\"```\", \"\").strip()\n    return sql.rstrip(\";\").strip()\n\
+          \ndef is_safe_select(sql: str) -> bool:\n    normalized = re.sub(r\"\\s+\"\
+          , \" \", sql.strip()).upper()\n    forbidden = (\n        \"DROP \", \"\
+          DELETE \", \"UPDATE \", \"INSERT \", \"ALTER \",\n        \"TRUNCATE \"\
+          , \"CREATE \", \"GRANT \", \"REVOKE \", \"EXEC \",\n    )\n    if any(k\
+          \ in normalized for k in forbidden):\n        return False\n    return normalized.startswith(\"\
+          SELECT \") or normalized.startswith(\"WITH \")\n\ndef main(sql_str: str,\
+          \ supabase_rpc_url: str, supabase_anon_key: str):\n    sql = clean_sql(sql_str)\n\
+          \n    if not is_safe_select(sql):\n        return {\n            \"status\"\
+          : \"error\",\n            \"raw_sql\": sql,\n            \"result\": \"\
+          安全拦截：仅允许 SELECT/WITH 只读查询\",\n        }\n\n    url = (supabase_rpc_url or\
+          \ \"\").strip()\n    api_key = (supabase_anon_key or \"\").strip()\n\n \
+          \   if not url or not api_key:\n        return {\n            \"status\"\
+          : \"error\",\n            \"raw_sql\": sql,\n            \"result\": \"\
+          配置错误：缺少 supabase_rpc_url 或 supabase_anon_key 输入变量\",\n        }\n\n    headers\
+          \ = {\n        \"apikey\": api_key,\n        \"Authorization\": f\"Bearer\
+          \ {api_key}\",\n        \"Content-Type\": \"application/json\",\n    }\n\
+          \n    try:\n        response = requests.post(url, headers=headers, json={\"\
+          query\": sql}, timeout=15)\n        result_data = response.json()\n\n  \
+          \      if isinstance(result_data, dict) and \"error\" in result_data:\n\
+          \            return {\n                \"status\": \"error\",\n        \
+          \        \"raw_sql\": sql,\n                \"result\": str(result_data[\"\
+          error\"]),\n            }\n\n        return {\n            \"status\": \"\
+          success\",\n            \"raw_sql\": sql,\n            \"result\": json.dumps(result_data,\
+          \ ensure_ascii=False),\n        }\n    except Exception as e:\n        return\
+          \ {\n            \"status\": \"error\",\n            \"raw_sql\": sql,\n\
+          \            \"result\": str(e),\n        }"
+        code_language: python3
+        outputs:
+          raw_sql:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1774439103130'
+          - text
+          value_type: string
+          variable: sql_str
+        - value_selector:
+          - env
+          - SUPABASE_RPC_URL
+          value_type: secret
+          variable: supabase_rpc_url
+        - value_selector:
+          - env
+          - SUPABASE_ANON_KEY
+          value_type: secret
+          variable: supabase_anon_key
+      height: 51
+      id: '1774439296195'
+      position:
+        x: 773.2536570149842
+        y: 381
+      positionAbsolute:
+        x: 773.2536570149842
+        y: 381
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        outputs:
+        - value_selector:
+          - '1774439296195'
+          - status
+          value_type: string
+          variable: status
+        - value_selector:
+          - '1774439296195'
+          - raw_sql
+          value_type: string
+          variable: sql
+        - value_selector:
+          - '1774439296195'
+          - result
+          value_type: string
+          variable: data
+        selected: false
+        title: 输出
+        type: end
+      height: 139
+      id: '1774439729115'
+      position:
+        x: 1498.8845225697378
+        y: 230.57609817189
+      positionAbsolute:
+        x: 1498.8845225697378
+        y: 230.57609817189
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: c4b4a635-f4ae-49f5-8651-b0f19f333cc0
+            value: success
+            varType: string
+            variable_selector:
+            - '1774439296195'
+            - status
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 147
+      id: '1774521929476'
+      position:
+        x: 1081.6558876278718
+        y: 381
+      positionAbsolute:
+        x: 1081.6558876278718
+        y: 381
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - id: dc98daed-8e04-4134-ab56-1bdfbb16b705
+          role: system
+          text: '你是一个资深数据库架构师，专门修复 PostgreSQL 查询错误。
+
+
+            【数据库表结构 — 只能使用这些表和字段】
+
+            1. users: user_id, username, city, register_date
+
+            2. products: product_id, product_name, category, price
+
+            3. orders: order_id, user_id, product_id, quantity, total_amount, order_date
+
+
+            【用户的原始需求】
+
+            {{#1774439025474.user_query#}}
+
+
+            【第一次生成的 SQL（有错误）】
+
+            {{#1774439296195.raw_sql#}}
+
+
+            【数据库返回的错误信息】
+
+            {{#1774439296195.result#}}
+
+
+            【修复规则】
+
+            1. 根据报错修正字段名、表名或 JOIN 条件
+
+            2. users 表用户名字段是 username，不是 name
+
+            3. 仅输出一条修复后的纯 SQL，不要 Markdown，不要解释
+
+            4. 只能使用 SELECT 或 WITH 开头的只读查询'
+        selected: false
+        title: 反思节点
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1774522223420'
+      position:
+        x: 1498.8845225697378
+        y: 656.1043939173371
+      positionAbsolute:
+        x: 1498.8845225697378
+        y: 656.1043939173371
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import re\nimport json\nimport requests\n\ndef clean_sql(sql_str: str)\
+          \ -> str:\n    sql = sql_str.replace(\"```sql\", \"\").replace(\"```postgresql\"\
+          , \"\").replace(\"```\", \"\").strip()\n    return sql.rstrip(\";\").strip()\n\
+          \ndef is_safe_select(sql: str) -> bool:\n    normalized = re.sub(r\"\\s+\"\
+          , \" \", sql.strip()).upper()\n    forbidden = (\n        \"DROP \", \"\
+          DELETE \", \"UPDATE \", \"INSERT \", \"ALTER \",\n        \"TRUNCATE \"\
+          , \"CREATE \", \"GRANT \", \"REVOKE \", \"EXEC \",\n    )\n    if any(k\
+          \ in normalized for k in forbidden):\n        return False\n    return normalized.startswith(\"\
+          SELECT \") or normalized.startswith(\"WITH \")\n\ndef main(sql_str: str,\
+          \ supabase_rpc_url: str, supabase_anon_key: str):\n    sql = clean_sql(sql_str)\n\
+          \n    if not is_safe_select(sql):\n        return {\n            \"status\"\
+          : \"error\",\n            \"raw_sql\": sql,\n            \"result\": \"\
+          安全拦截：仅允许 SELECT/WITH 只读查询\",\n        }\n\n    url = (supabase_rpc_url or\
+          \ \"\").strip()\n    api_key = (supabase_anon_key or \"\").strip()\n\n \
+          \   if not url or not api_key:\n        return {\n            \"status\"\
+          : \"error\",\n            \"raw_sql\": sql,\n            \"result\": \"\
+          配置错误：缺少 supabase_rpc_url 或 supabase_anon_key 输入变量\",\n        }\n\n    headers\
+          \ = {\n        \"apikey\": api_key,\n        \"Authorization\": f\"Bearer\
+          \ {api_key}\",\n        \"Content-Type\": \"application/json\",\n    }\n\
+          \n    try:\n        response = requests.post(url, headers=headers, json={\"\
+          query\": sql}, timeout=15)\n        result_data = response.json()\n\n  \
+          \      if isinstance(result_data, dict) and \"error\" in result_data:\n\
+          \            return {\n                \"status\": \"error\",\n        \
+          \        \"raw_sql\": sql,\n                \"result\": str(result_data[\"\
+          error\"]),\n            }\n\n        return {\n            \"status\": \"\
+          success\",\n            \"raw_sql\": sql,\n            \"result\": json.dumps(result_data,\
+          \ ensure_ascii=False),\n        }\n    except Exception as e:\n        return\
+          \ {\n            \"status\": \"error\",\n            \"raw_sql\": sql,\n\
+          \            \"result\": str(e),\n        }"
+        code_language: python3
+        outputs:
+          raw_sql:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行 2
+        type: code
+        variables:
+        - value_selector:
+          - '1774522223420'
+          - text
+          value_type: string
+          variable: sql_str
+        - value_selector:
+          - env
+          - SUPABASE_ANON_KEY
+          value_type: secret
+          variable: supabase_anon_key
+        - value_selector:
+          - env
+          - SUPABASE_RPC_URL
+          value_type: secret
+          variable: supabase_rpc_url
+      height: 51
+      id: '1774522834036'
+      position:
+        x: 1799.8845225697378
+        y: 656.1043939173371
+      positionAbsolute:
+        x: 1799.8845225697378
+        y: 656.1043939173371
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        outputs:
+        - value_selector:
+          - '1774522834036'
+          - status
+          value_type: string
+          variable: status
+        - value_selector:
+          - '1774522834036'
+          - raw_sql
+          value_type: string
+          variable: sql
+        - value_selector:
+          - '1774522834036'
+          - result
+          value_type: string
+          variable: data
+        selected: false
+        title: 输出 2
+        type: end
+      height: 139
+      id: '1774522950350'
+      position:
+        x: 2100.884522569738
+        y: 656.1043939173371
+      positionAbsolute:
+        x: 2100.884522569738
+        y: 656.1043939173371
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: -947.2639742047452
+      y: 204.0848433935322
+      zoom: 0.7578582832552013
+  rag_pipeline_variables: []
